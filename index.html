@@ -11,9 +11,6 @@
     </header>
 </head>
 <body>
-    <div id="conta">
-    <p>Visitante: <span id="contador">0</span>.</p>
-    </div>
 
     <div id="quadro">
         <div id="listaut">
@@ -42,33 +39,7 @@
             </div>
         </div>
     </div>
-    <script>
-        // Função para incrementar o contador de visitantes e exibi-lo na página
-        function incrementVisitCount() {
-            // Verifica se já existe um contador armazenado localmente
-            if (localStorage.getItem('visitCount')) {
-                // Se existir, obtém o valor do contador armazenado
-                var visitCount = parseInt(localStorage.getItem('visitCount'));
-                // Incrementa o contador
-                visitCount++;
-            } else {
-                // Se não existir, define o contador como 1
-                var visitCount = 1;
-            }
-            
-            // Atualiza o valor do contador na página
-            document.getElementById('contador').textContent = visitCount;
-
-            // Armazena o novo valor do contador localmente
-            localStorage.setItem('visitCount', visitCount);
-        }
-
-        // Chama a função para incrementar o contador quando a página é carregada
-        window.onload = function() {
-            incrementVisitCount();
-        };
-    </script>
-
+ 
     <footer><h5>3ªCIA/3ºBBM - ITAPIPOCA - ©️ <span style="font-size: 70%; color: brown;">(cbMichael)</span></footer> 
 
     
