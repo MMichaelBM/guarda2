@@ -21,14 +21,15 @@ body {
 }
 #vtr h3 {
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 160%;
+    font-size: 177%;
     margin-top: 0;
     color: brown;
+
 }
 #vtr2 h3 {
     color: orangered;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 160%;
+    font-size: 177%;
     margin-top: 0;
 
 }
@@ -38,7 +39,7 @@ footer {
     margin-top: 4.5%;
 }
 a {
-    font-size: 110%;
+    font-size: 130%;
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-decoration: none;
 }
