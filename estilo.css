@@ -1,59 +1,100 @@
-li {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    list-style-type: none;
-
-}
+/* Estilos gerais */
 body {
-    background-color: rgb(252, 251, 250);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
 }
-#quadro {
-    background-color: rgb(247, 247, 242);
-    margin-left: 12%;
-    margin-top: 0%;
-    margin-right: 12%;
-    text-align: center;
-    
-}
-#listaut h3 {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 160%;
 
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 2px solid #ccc;
 }
-#vtr h3 {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 177%;
-    margin-top: 0;
-    color: brown;
 
+header img:first-child {
+    width: 70%;
+    padding-left: 15%;
 }
-#vtr2 h3 {
-    color: orangered;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 177%;
-    margin-top: 0;
 
+header img:last-child {
+    width: 14%;
+    border-radius: 50%; /* Para deixar o avatar circular */
 }
+
+/* Container principal */
+#container {
+    display: flex;           /* Coloca os boxes lado a lado */
+    justify-content: space-around; /* Espaça os elementos igualmente */
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Estilo das boxes */
+#box1 {
+    background-color: #fff;
+    border: 2px solid #d1cece;
+    border-radius: 10px;
+    width: 45%;              /* Define a largura das boxes */
+    padding: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+}
+#box2 {
+        background-color: #fff;
+        border: 2px solid #d1cece;
+        border-radius: 10px;
+        width: 45%;              /* Define a largura das boxes */
+        padding: 20px;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+}
+/* Estilo das listas */
+ul {
+    list-style-type: none;   /* Remove os marcadores das listas */
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+ul li a:hover {
+    color: #007BFF;          /* Cor ao passar o mouse */
+}
+
+/* Footer */
 footer {
     text-align: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-top: 4.5%;
-}
-a {
-    font-size: 130%;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    text-decoration: none;
-}
-a:hover {
-    background-color: bisque;
-    border-radius: 15%;
-    color: black;
-}
-#conta {
-    margin-left: 68%;
-    font-size: 1em
-
-
-
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    font-size: 14px;
 }
 
-   
+footer h5 {
+    margin: 0;
+}
+
+footer span {
+    font-size: 70%;
+    color: brown;
+}
+img:hover {
+    transform: scale(1.2); /* Aumenta o tamanho do ícone em 20% */
+}
+a:hover{
+    color: aqua;
+}
+
