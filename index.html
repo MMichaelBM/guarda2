@@ -6,47 +6,75 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="estilo.css">
     <script src="contador.js"></script>
-    <header>
-        <img src="imagem/llogo.jpg" style="width: 70%; padding-left: 15%;">
-        <img src="imagem/avatar.jpg" style=" width: 14%; align-items: cemter; ">
-    </header>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        /* Estilo do avatar */
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background: url('imagem/avatar.jpg') no-repeat center center;
+            background-size: cover;
+            position: absolute;
+            pointer-events: none; /* Impede que o avatar interfira com o clique do mouse */
+            transition: transform 0.1s ease-out;
+            z-index: 1000; /* Mantém o avatar acima de outros elementos */
+        }
+    </style>
 </head>
 <body>
 
+    <header>
+        <img src="imagem/llogo.jpg" style="width: 70%; padding-left: 15%;">
+        <img  id="ava" src="imagem/avatar.jpg" style=" width: 14%; align-items: center; ">
+    </header>
+
+    <!-- Div que representa o avatar -->
+    <div class="avatar" id="avatar"></div>
+
     <div id="container">
-            <div id="box1">
+        <div id="box1">
             <h3>Links úteis</h3>
             <ul>
-             <li><a href="https://cod.cb.ce.gov.br/">COD</a></li>
-             <li><a href="https://sentinela2.cb.ce.gov.br/v1.6/sentinela_Login/sentinela_Login.php">Sentinela</a></li>
-             <li><a href="https://meu.cb.ce.gov.br/">Meu CBMCE</a></li>
-             <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScsDF7IlzqkWFdwZs2Hz_crdVByoritpOgndSA8vnwjwDLaNA/viewform?pli=1">Estatísticas de Ocorrências</a></li>
-             <li><a href="http://www.google.com">Acessar internet</a></li>
+                <li><a href="https://cod.cb.ce.gov.br/">COD</a></li>
+                <li><a href="https://sentinela2.cb.ce.gov.br/v1.6/sentinela_Login/sentinela_Login.php">Sentinela</a></li>
+                <li><a href="https://meu.cb.ce.gov.br/">Meu CBMCE</a></li>
+                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScsDF7IlzqkWFdwZs2Hz_crdVByoritpOgndSA8vnwjwDLaNA/viewform?pli=1">Estatísticas de Ocorrências</a></li>
+                <li><a href="http://www.google.com">Acessar internet</a></li>
             </ul>
-            </div>
-      <div id="box2">
+        </div>
+        <div id="box2">
             <h3 style="color: brown;">SOCORRO</h3>
             <ul>
                 <li><a href="https://docs.google.com/forms/d/1OsdKHj9aTW1CTzMMVV3byIGW_W7JMFutToKRs-H7MjQ/edit">Viatura</a></li>
-                <li><a href="https://docs.google.com/forms/d/1sN6kUwPGKzERHIQD53cE1JprzGkgLSpRoh2OOHjWfY0/viewform?edit_requested=true">Material</a></li>
+                <li><a href="https://docs.google.com/forms/d/11DPZ-cGAEbmbvKnqyeEFym_UWUcKaihMLJ02W35JwvA/viewform?edit_requested=true">Material</a></li>
             </ul>
-      
-                        
+
             <h3 style="color: rgb(175, 129, 44);">SALVAMENTO</h3>
             <ul>
                 <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSe5yydc5sr4i3yg4NgQChelQrcdx3lY66onlrBM_xTmp0Hzqg/viewform">Viatura</a></li>
-                <li><a href="https://docs.google.com/forms/d/1qVn7iMOTLe3naIfHO8dTq_N-K5rrfcAvcB58ddaKnRM/viewform?edit_requested=true">Material</a></li>
+                <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScoMnfKY7CBI3gviHIgog8DlTf9ieSAUug-mgYgqB4sYLYV6A/viewform">Material</a></li>
             </ul>
+        </div>
+    </div>
 
-            </div>
+    <div id="map" style="height: 400px;"></div>
 
- 
-    <footer><h5>3ªCIA/3ºBBM - ITAPIPOCA - ©️ <span style= "font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 130%; color: rgb(231, 186, 87);">~ Mic<u>haelRob</u>son <img src="imagem/brasil.jpg" alt="Bandeira do Brasil" 
-        style="width: 16px; vertical-align: middle; margin-left: 5px; transition: transform 0.3s ease;"> <img src="imagem/icon cbmce.png" alt="Bandeira do Brasil" 
-        style="width: 16px; vertical-align: middle; margin-left: 5px; transition: transform 0.3s ease;">
-</h5>
-</h5> </span></footer> 
+    <footer>
+        <h5>3ªCIA/3ºBBM - ITAPIPOCA - ©️ <span style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 130%; color: rgb(231, 186, 87);">
+            ~ Mic<u>haelRob</u>son <img src="imagem/brasil.jpg" alt="Bandeira do Brasil" style="width: 16px; vertical-align: middle; margin-left: 5px; transition: transform 0.3s ease;"> <img src="imagem/icon cbmce.png" alt="Icon CBMCE" style="width: 16px; vertical-align: middle; margin-left: 5px; transition: transform 0.3s ease;">
+        </span></h5>
+    </footer> 
 
-    
+    <script>
+        // Seleciona o elemento do avatar
+        const avatar = document.getElementById('avatar');
+
+        // Função que move o avatar para seguir o mouse
+        document.addEventListener('mousemove', (event) => {
+            avatar.style.left = event.pageX + 'px';
+            avatar.style.top = event.pageY + 'px';
+        });
+    </script>
 </body> 
 </html>
