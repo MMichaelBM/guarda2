@@ -91,10 +91,16 @@ footer span {
     font-size: 70%;
     color: brown;
 }
-#ava:hover {
-    transform: scale(1.2); /* Aumenta o tamanho do ícone em 20% */
-}
+
 a:hover{
     color: aqua;
 }
+#data {
+    font-size: 1.9rem;
+    font-weight: bold;
+    color: #332b20;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
 
