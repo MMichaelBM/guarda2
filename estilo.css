@@ -1,106 +1,129 @@
-/* Estilos gerais */
+/* --- BASE GERAL --- */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
-}
-
-/* Header */
-header {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f5f7fa;
+    color: #1f2937;
+    height: 100vh;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    overflow: hidden; /* sem scroll */
+}
+
+/* --- HEADER NOVO --- */
+.header {
+    background: #ffffff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* itens nas extremidades */
     align-items: center;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+/* Logo CBMCE (esquerda) */
+.side-logo {
+    width: 70px;
+    height: auto;
+}
+
+/* Logo larga do centro */
+.logo-banner {
+    width: 890px;
+    max-width: 690px;
+    height: auto;
+    object-fit: contain;
+    
+}
+
+/* Avatar (direita) */
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #d1d5db;
+}
+
+/* --- MAIN LAYOUT --- */
+.main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    padding: 18px;
+}
+
+/* --- CARD (caixas) --- */
+.card {
+    background: #ffffff;
+    border-radius: 12px;
     padding: 20px;
-    background-color: #fff;
-    border-bottom: 2px solid #ccc;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 
-header img:first-child {
-    width: 70%;
-    padding-left: 15%;
+/* Títulos */
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+    color: #1f2937;
 }
 
-header img:last-child {
-    width: 14%;
-    border-radius: 50%; /* Para deixar o avatar circular */
-}
-
-/* Container principal */
-#container {
-    display: flex;           /* Coloca os boxes lado a lado */
-    justify-content: space-around; /* Espaça os elementos igualmente */
-    padding: 20px;
-    margin-top: 20px;
-}
-
-/* Estilo das boxes */
-#box1 {
-    background-color: #fff;
-    border: 2px solid #d1cece;
-    border-radius: 10px;
-    width: 45%;              /* Define a largura das boxes */
-    padding: 20px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-}
-#box2 {
-        background-color: #fff;
-        border: 2px solid #d1cece;
-        border-radius: 10px;
-        width: 45%;              /* Define a largura das boxes */
-        padding: 20px;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-}
-/* Estilo das listas */
-ul {
-    list-style-type: none;   /* Remove os marcadores das listas */
-    padding: 0;
-}
-
-ul li {
-    margin: 10px 0;
-}
-
-ul li a {
+/* --- LINKS PADRÃO --- */
+.card a {
+    display: block;
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
+    background: #f1f5f9;
+    padding: 10px 12px;
+    margin: 6px 0;
+    border-radius: 8px;
+    font-weight: 500;
+    color: #1f2937;
+    border: 1px solid #e2e8f0;
+    transition: all 0.15s ease;
 }
 
-ul li a:hover {
-    color: #007BFF;          /* Cor ao passar o mouse */
+/* Hover geral */
+.card a:hover {
+    background: #2563eb;
+    color: white;
 }
 
-/* Footer */
+/* --- TÍTULOS COLORIDOS --- */
+.soco {
+    color: #b91c1c;
+}
+
+.salv {
+    margin-top: 16px;
+    color: #b45309;
+}
+
+/* --- ESPECIAIS SOCORRO (hover pastel vermelho) --- */
+.link-socorro:hover {
+    background: #ffeded !important;
+    color: #7a0d0d !important;
+    border-color: #e9b5b5 !important;
+}
+
+/* --- ESPECIAIS SALVAMENTO (hover pastel laranja) --- */
+.link-salvamento:hover {
+    background: #fff4e5 !important;
+    color: #8a4b08 !important;
+    border-color: #f1c48a !important;
+}
+
+/* --- FOOTER --- */
 footer {
+    background: #ffffff;
     text-align: center;
     padding: 10px;
-    background-color: #333;
-    color: #fff;
-    position: fixed;
-    width: 100%;
+    border-top: 2px solid #e2e8f0;
+    font-size: 0.85rem;
+    color: #374151;
+    position: absolute;
     bottom: 0;
-    font-size: 14px;
+    width: 100%;
 }
-
-footer h5 {
-    margin: 0;
-}
-
-footer span {
-    font-size: 70%;
-    color: brown;
-}
-
-a:hover{
-    color: aqua;
-}
-#data {
-    font-size: 1.9rem;
-    font-weight: bold;
-    color: #332b20;
-    text-align: center;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
