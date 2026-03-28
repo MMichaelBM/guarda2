@@ -6,17 +6,79 @@
     <title>GUARDA – Atalhos Úteis</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
-    <script>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<header class="header">
+    <img class="logo-banner" src="imagem/cbmce.png">
+    <img class="avatar" src="imagem/logo1.png">
+</header>
+
+<main class="main">
+    
+    <div class="card">
+        <h2>Links úteis</h2>
+
+        <a href="https://cod.cb.ce.gov.br/" target="_blank">C.O.D</a>
+        <a href="https://sentinela2.cb.ce.gov.br/v1.6/sentinela_Login/sentinela_Login.php" target="_blank">Sentinela</a>
+        <a href="https://meu.cb.ce.gov.br/" target="_blank">Meu CBMCE</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScsDF7IlzqkWFdwZs2Hz_crdVByoritpOgndSA8vnwjwDLaNA/viewform?pli=1" target="_blank">Estatísticas</a>
+        <a href="https://www.google.com" target="_blank">Acessar internet</a>
+    </div>
+
+    <div class="card">
+        <h2 class="soco">SOCORRO</h2>
+
+        <a class="link-socorro" href="#">Viatura</a>
+        <a class="link-socorro" href="#">Material</a>
+
+        <h2 class="salv">SALVAMENTO</h2>
+
+        <a class="link-salvamento" href="#">Viatura</a>
+        <a class="link-salvamento" href="#">Material</a>
+    </div>
+
+</main>
+
+<div id="data"></div>
+
+<footer>
+    © 3ªCIA / 3ºBBM – Itapipoca • <b>Michael Robson</b> 🇧🇷
+</footer>
+
+<script>
+// DATA
+function atualizarDataHora() {
+    const agora = new Date();
+    document.getElementById("data").textContent =
+        agora.toLocaleDateString("pt-BR", {
+            weekday: 'long',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+}
+setInterval(atualizarDataHora, 1000);
+atualizarDataHora();
+
+
+// ===== PARTICULAS (VERSÃO ESTÁVEL) =====
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
 
-let mouse = {
-    x: null,
-    y: null
-};
+window.addEventListener("resize", resizeCanvas);
+
+let mouse = { x: undefined, y: undefined };
 
 window.addEventListener("mousemove", (e) => {
     mouse.x = e.x;
@@ -27,10 +89,10 @@ class Particle {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.size = Math.random() * 2 + 0.5;
-        this.baseX = this.x;
-        this.baseY = this.y;
-        this.density = Math.random() * 40;
+        this.baseX = x;
+        this.baseY = y;
+        this.size = 1.2;
+        this.density = Math.random() * 20 + 5;
     }
 
     draw() {
@@ -41,44 +103,41 @@ class Particle {
     }
 
     update() {
+        if (!mouse.x || !mouse.y) return;
+
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
 
-        let forceDirectionX = dx / distance;
-        let forceDirectionY = dy / distance;
-
-        let maxDistance = 120;
-        let force = (maxDistance - distance) / maxDistance;
-
-        if (distance < maxDistance) {
-            this.x -= forceDirectionX * force * this.density;
-            this.y -= forceDirectionY * force * this.density;
+        if (distance < 100) {
+            this.x -= dx * 0.02;
+            this.y -= dy * 0.02;
         } else {
-            // volta pro lugar original suavemente
-            this.x += (this.baseX - this.x) * 0.05;
-            this.y += (this.baseY - this.y) * 0.05;
+            this.x += (this.baseX - this.x) * 0.02;
+            this.y += (this.baseY - this.y) * 0.02;
         }
     }
 }
 
-let particlesArray = [];
+let particles = [];
 
-function init() {
-    particlesArray = [];
-    for (let y = 0; y < canvas.height; y += 25) {
-        for (let x = 0; x < canvas.width; x += 25) {
-            particlesArray.push(new Particle(x, y));
+function initParticles() {
+    particles = [];
+    const spacing = 30;
+
+    for (let y = 0; y < canvas.height; y += spacing) {
+        for (let x = 0; x < canvas.width; x += spacing) {
+            particles.push(new Particle(x, y));
         }
     }
 }
 
-init();
+initParticles();
 
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    particlesArray.forEach(p => {
+    particles.forEach(p => {
         p.update();
         p.draw();
     });
@@ -87,110 +146,7 @@ function animate() {
 }
 
 animate();
-
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    init();
-});
 </script>
-<body>
-    <canvas id="particles"></canvas>
-    <div class="bg-orb orb1"></div>
-    <div class="bg-orb orb2"></div>
-
-    <header class="header parallax" data-speed="12">
-        <img class="logo-banner" src="imagem/cbmce.png" alt="Logo CBMCE">
-        <img class="avatar" src="imagem/logo1.png" alt="Avatar">
-    </header>
-
-    <main class="main">
-        <div class="card parallax" data-speed="18">
-            <h2>Links úteis</h2>
-
-            <a href="https://cod.cb.ce.gov.br/" target="_blank">C.O.D</a>
-            <a href="https://sentinela2.cb.ce.gov.br/v1.6/sentinela_Login/sentinela_Login.php" target="_blank">Sentinela</a>
-            <a href="https://meu.cb.ce.gov.br/" target="_blank">Meu CBMCE</a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScsDF7IlzqkWFdwZs2Hz_crdVByoritpOgndSA8vnwjwDLaNA/viewform?pli=1" target="_blank">Estatísticas</a>
-            <a href="https://www.google.com" target="_blank">Acessar internet</a>
-        </div>
-
-        <div class="card parallax" data-speed="24">
-            <h2 class="soco">SOCORRO</h2>
-
-            <a class="link-socorro" href="https://docs.google.com/forms/d/1OsdKHj9aTW1CTzMMVV3byIGW_W7JMFutToKRs-H7MjQ/edit" target="_blank">Viatura</a>
-            <a class="link-socorro" href="https://docs.google.com/forms/d/11DPZ-cGAEbmbvKnqyeEFym_UWUcKaihMLJ02W35JwvA/viewform?edit_requested=true" target="_blank">Material</a>
-
-            <h2 class="salv">SALVAMENTO</h2>
-
-            <a class="link-salvamento" href="https://docs.google.com/forms/d/e/1FAIpQLSe5yydc5sr4i3yg4NgQChelQrcdx3lY66onlrBM_xTmp0Hzqg/viewform" target="_blank">Viatura</a>
-            <a class="link-salvamento" href="https://docs.google.com/forms/d/e/1FAIpQLScoMnfKY7CBI3gviHIgog8DlTf9ieSAUug-mgYgqB4sYLYV6A/viewform" target="_blank">Material</a>
-        </div>
-    </main>
-
-    <div id="data" class="parallax" data-speed="10"></div>
-
-    <footer class="parallax" data-speed="8">
-        © 3ªCIA / 3ºBBM – Itapipoca • <b>Michael Robson</b> 🇧🇷
-    </footer>
-
-    <script>
-        function atualizarDataHora() {
-            const agora = new Date();
-            const opcoes = {
-                weekday: 'long',
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            };
-
-            document.getElementById("data").textContent =
-                agora.toLocaleDateString("pt-BR", opcoes);
-        }
-
-        setInterval(atualizarDataHora, 1000);
-        atualizarDataHora();
-
-        const items = document.querySelectorAll(".parallax");
-        const orbs = document.querySelectorAll(".bg-orb");
-
-        let targetX = 0;
-        let targetY = 0;
-        let currentX = 0;
-        let currentY = 0;
-
-        document.addEventListener("mousemove", (e) => {
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-
-            targetX = (x - 0.5) * 2;
-            targetY = (y - 0.5) * 2;
-        });
-
-        function animate() {
-            currentX += (targetX - currentX) * 0.06;
-            currentY += (targetY - currentY) * 0.06;
-
-            items.forEach((item) => {
-                const speed = Number(item.dataset.speed || 10);
-                const moveX = currentX * speed;
-                const moveY = currentY * speed;
-
-                item.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            });
-
-            orbs.forEach((orb, index) => {
-                const factor = index === 0 ? 30 : 18;
-                orb.style.transform = `translate(${currentX * factor}px, ${currentY * factor}px)`;
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    </script>
 
 </body>
 </html>
