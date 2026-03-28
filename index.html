@@ -6,147 +6,244 @@
     <title>GUARDA – Atalhos Úteis</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
-
 <body>
+    <canvas id="particles"></canvas>
 
-<canvas id="particles"></canvas>
+    <header class="header">
+        <img class="logo-banner" src="imagem/cbmce.png" alt="CBMCE">
+        <img class="avatar" src="imagem/logo1.png" alt="Logo">
+    </header>
 
-<header class="header">
-    <img class="logo-banner" src="imagem/cbmce.png">
-    <img class="avatar" src="imagem/logo1.png">
-</header>
+    <main class="main">
+        <div class="card">
+            <h2>Links úteis</h2>
 
-<main class="main">
-    
-    <div class="card">
-        <h2>Links úteis</h2>
+            <a href="https://cod.cb.ce.gov.br/" target="_blank" rel="noopener noreferrer">C.O.D</a>
+            <a href="https://sentinela2.cb.ce.gov.br/v1.6/sentinela_Login/sentinela_Login.php" target="_blank" rel="noopener noreferrer">Sentinela</a>
+            <a href="https://meu.cb.ce.gov.br/" target="_blank" rel="noopener noreferrer">Meu CBMCE</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScsDF7IlzqkWFdwZs2Hz_crdVByoritpOgndSA8vnwjwDLaNA/viewform?pli=1" target="_blank" rel="noopener noreferrer">Estatísticas</a>
+            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Acessar internet</a>
+        </div>
 
-        <a href="https://cod.cb.ce.gov.br/" target="_blank">C.O.D</a>
-        <a href="https://sentinela2.cb.ce.gov.br/v1.6/sentinela_Login/sentinela_Login.php" target="_blank">Sentinela</a>
-        <a href="https://meu.cb.ce.gov.br/" target="_blank">Meu CBMCE</a>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScsDF7IlzqkWFdwZs2Hz_crdVByoritpOgndSA8vnwjwDLaNA/viewform?pli=1" target="_blank">Estatísticas</a>
-        <a href="https://www.google.com" target="_blank">Acessar internet</a>
-    </div>
+        <div class="card">
+            <h2 class="soco">SOCORRO</h2>
 
-    <div class="card">
-        <h2 class="soco">SOCORRO</h2>
+            <a class="link-socorro" href="https://docs.google.com/forms/d/1OsdKHj9aTW1CTzMMVV3byIGW_W7JMFutToKRs-H7MjQ/edit" target="_blank" rel="noopener noreferrer">Viatura</a>
+            <a class="link-socorro" href="https://docs.google.com/forms/d/11DPZ-cGAEbmbvKnqyeEFym_UWUcKaihMLJ02W35JwvA/viewform?edit_requested=true" target="_blank" rel="noopener noreferrer">Material</a>
 
-        <a class="link-socorro" href="#">Viatura</a>
-        <a class="link-socorro" href="#">Material</a>
+            <h2 class="salv">SALVAMENTO</h2>
 
-        <h2 class="salv">SALVAMENTO</h2>
+            <a class="link-salvamento" href="https://docs.google.com/forms/d/e/1FAIpQLSe5yydc5sr4i3yg4NgQChelQrcdx3lY66onlrBM_xTmp0Hzqg/viewform" target="_blank" rel="noopener noreferrer">Viatura</a>
+            <a class="link-salvamento" href="https://docs.google.com/forms/d/e/1FAIpQLScoMnfKY7CBI3gviHIgog8DlTf9ieSAUug-mgYgqB4sYLYV6A/viewform" target="_blank" rel="noopener noreferrer">Material</a>
+        </div>
+    </main>
 
-        <a class="link-salvamento" href="#">Viatura</a>
-        <a class="link-salvamento" href="#">Material</a>
-    </div>
+    <div id="data"></div>
 
-</main>
+    <footer>
+        © 3ªCIA / 3ºBBM – Itapipoca • <b>Michael Robson</b> 🇧🇷
+    </footer>
 
-<div id="data"></div>
+    <script>
+        function atualizarDataHora() {
+            const agora = new Date();
+            const opcoes = {
+                weekday: "long",
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            };
 
-<footer>
-    © 3ªCIA / 3ºBBM – Itapipoca • <b>Michael Robson</b> 🇧🇷
-</footer>
+            document.getElementById("data").textContent =
+                agora.toLocaleDateString("pt-BR", opcoes);
+        }
 
-<script>
-// DATA
-function atualizarDataHora() {
-    const agora = new Date();
-    document.getElementById("data").textContent =
-        agora.toLocaleDateString("pt-BR", {
-            weekday: 'long',
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
+        setInterval(atualizarDataHora, 1000);
+        atualizarDataHora();
+
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d", { alpha: true });
+
+        let width = 0;
+        let height = 0;
+        let particles = [];
+        const pointer = {
+            x: null,
+            y: null,
+            radius: 140
+        };
+
+        const CONFIG = {
+            spacing: 28,
+            particleSize: 1.6,
+            returnSpeed: 0.045,
+            repelStrength: 1.8,
+            connectDistance: 72,
+            maxLineOpacity: 0.18,
+            gradientLeft: { r: 37, g: 99, b: 235 },
+            gradientRight: { r: 244, g: 63, b: 94 }
+        };
+
+        function resizeCanvas() {
+            const dpr = Math.max(window.devicePixelRatio || 1, 1);
+            width = window.innerWidth;
+            height = window.innerHeight;
+
+            canvas.width = Math.floor(width * dpr);
+            canvas.height = Math.floor(height * dpr);
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(dpr, dpr);
+
+            createParticles();
+        }
+
+        function lerp(a, b, t) {
+            return a + (b - a) * t;
+        }
+
+        function colorByX(x) {
+            const t = Math.max(0, Math.min(1, x / width));
+            const r = Math.round(lerp(CONFIG.gradientLeft.r, CONFIG.gradientRight.r, t));
+            const g = Math.round(lerp(CONFIG.gradientLeft.g, CONFIG.gradientRight.g, t));
+            const b = Math.round(lerp(CONFIG.gradientLeft.b, CONFIG.gradientRight.b, t));
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        class Particle {
+            constructor(x, y) {
+                this.baseX = x;
+                this.baseY = y;
+                this.x = x;
+                this.y = y;
+                this.vx = 0;
+                this.vy = 0;
+                this.size = CONFIG.particleSize + Math.random() * 0.6;
+            }
+
+            update() {
+                if (pointer.x !== null && pointer.y !== null) {
+                    const dx = this.x - pointer.x;
+                    const dy = this.y - pointer.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+
+                    if (distance < pointer.radius) {
+                        const force = (pointer.radius - distance) / pointer.radius;
+                        const angleX = dx / distance;
+                        const angleY = dy / distance;
+
+                        this.vx += angleX * force * CONFIG.repelStrength;
+                        this.vy += angleY * force * CONFIG.repelStrength;
+                    }
+                }
+
+                this.vx += (this.baseX - this.x) * CONFIG.returnSpeed;
+                this.vy += (this.baseY - this.y) * CONFIG.returnSpeed;
+
+                this.vx *= 0.88;
+                this.vy *= 0.88;
+
+                this.x += this.vx;
+                this.y += this.vy;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.fillStyle = colorByX(this.x);
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function createParticles() {
+            particles = [];
+            for (let y = 16; y < height; y += CONFIG.spacing) {
+                for (let x = 16; x < width; x += CONFIG.spacing) {
+                    particles.push(new Particle(x, y));
+                }
+            }
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                const p1 = particles[i];
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < CONFIG.connectDistance) {
+                        const opacity = (1 - distance / CONFIG.connectDistance) * CONFIG.maxLineOpacity;
+                        const midX = (p1.x + p2.x) * 0.5;
+
+                        ctx.beginPath();
+                        ctx.strokeStyle = colorByX(midX).replace("rgb", "rgba").replace(")", `, ${opacity})`);
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function drawPointerGlow() {
+            if (pointer.x === null || pointer.y === null) return;
+
+            const gradient = ctx.createRadialGradient(
+                pointer.x, pointer.y, 0,
+                pointer.x, pointer.y, pointer.radius * 1.2
+            );
+
+            gradient.addColorStop(0, "rgba(37, 99, 235, 0.10)");
+            gradient.addColorStop(0.55, "rgba(99, 102, 241, 0.06)");
+            gradient.addColorStop(1, "rgba(244, 63, 94, 0)");
+
+            ctx.beginPath();
+            ctx.fillStyle = gradient;
+            ctx.arc(pointer.x, pointer.y, pointer.radius * 1.2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            drawPointerGlow();
+
+            for (const particle of particles) {
+                particle.update();
+            }
+
+            drawConnections();
+
+            for (const particle of particles) {
+                particle.draw();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener("mousemove", (event) => {
+            pointer.x = event.clientX;
+            pointer.y = event.clientY;
         });
-}
-setInterval(atualizarDataHora, 1000);
-atualizarDataHora();
 
+        window.addEventListener("mouseleave", () => {
+            pointer.x = null;
+            pointer.y = null;
+        });
 
-// ===== PARTICULAS (VERSÃO ESTÁVEL) =====
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+        window.addEventListener("resize", resizeCanvas);
 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-
-window.addEventListener("resize", resizeCanvas);
-
-let mouse = { x: undefined, y: undefined };
-
-window.addEventListener("mousemove", (e) => {
-    mouse.x = e.x;
-    mouse.y = e.y;
-});
-
-class Particle {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.baseX = x;
-        this.baseY = y;
-        this.size = 1.2;
-        this.density = Math.random() * 20 + 5;
-    }
-
-    draw() {
-        ctx.fillStyle = "#2563eb";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-
-    update() {
-        if (!mouse.x || !mouse.y) return;
-
-        let dx = mouse.x - this.x;
-        let dy = mouse.y - this.y;
-        let distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (distance < 100) {
-            this.x -= dx * 0.02;
-            this.y -= dy * 0.02;
-        } else {
-            this.x += (this.baseX - this.x) * 0.02;
-            this.y += (this.baseY - this.y) * 0.02;
-        }
-    }
-}
-
-let particles = [];
-
-function initParticles() {
-    particles = [];
-    const spacing = 30;
-
-    for (let y = 0; y < canvas.height; y += spacing) {
-        for (let x = 0; x < canvas.width; x += spacing) {
-            particles.push(new Particle(x, y));
-        }
-    }
-}
-
-initParticles();
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
-
-    requestAnimationFrame(animate);
-}
-
-animate();
-</script>
-
+        resizeCanvas();
+        animate();
+    </script>
 </body>
 </html>
