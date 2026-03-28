@@ -6,6 +6,94 @@
     <title>GUARDA – Atalhos Úteis</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
+    <script>
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let mouse = {
+    x: null,
+    y: null
+};
+
+window.addEventListener("mousemove", (e) => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+});
+
+class Particle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 2 + 0.5;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.density = Math.random() * 40;
+    }
+
+    draw() {
+        ctx.fillStyle = "#2563eb";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    update() {
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+
+        let forceDirectionX = dx / distance;
+        let forceDirectionY = dy / distance;
+
+        let maxDistance = 120;
+        let force = (maxDistance - distance) / maxDistance;
+
+        if (distance < maxDistance) {
+            this.x -= forceDirectionX * force * this.density;
+            this.y -= forceDirectionY * force * this.density;
+        } else {
+            // volta pro lugar original suavemente
+            this.x += (this.baseX - this.x) * 0.05;
+            this.y += (this.baseY - this.y) * 0.05;
+        }
+    }
+}
+
+let particlesArray = [];
+
+function init() {
+    particlesArray = [];
+    for (let y = 0; y < canvas.height; y += 25) {
+        for (let x = 0; x < canvas.width; x += 25) {
+            particlesArray.push(new Particle(x, y));
+        }
+    }
+}
+
+init();
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    init();
+});
+</script>
 <body>
     <canvas id="particles"></canvas>
     <div class="bg-orb orb1"></div>
