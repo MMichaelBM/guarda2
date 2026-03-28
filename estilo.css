@@ -3,46 +3,70 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Segoe UI", Arial, sans-serif;
-    background: #f5f7fa;
+    background: linear-gradient(135deg, #f5f7fa 0%, #eaf1f8 100%);
     color: #1f2937;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* sem scroll */
+    overflow: hidden;
+    position: relative;
 }
 
-/* --- HEADER NOVO --- */
+/* fundo decorativo */
+.bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(45px);
+    opacity: 0.35;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+}
+
+.orb1 {
+    width: 320px;
+    height: 320px;
+    background: rgba(37, 99, 235, 0.22);
+    top: -80px;
+    left: -60px;
+}
+
+.orb2 {
+    width: 260px;
+    height: 260px;
+    background: rgba(239, 68, 68, 0.16);
+    right: -40px;
+    bottom: 40px;
+}
+
+/* --- HEADER --- */
 .header {
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 10px 20px;
     display: flex;
-    justify-content: space-between; /* itens nas extremidades */
+    justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #e2e8f0;
+    position: relative;
+    z-index: 2;
+    will-change: transform;
 }
 
-/* Logo CBMCE (esquerda) */
-.side-logo {
-    width: 70px;
-    height: auto;
-}
-
-/* Logo larga do centro */
 .logo-banner {
     width: 890px;
     max-width: 690px;
     height: auto;
     object-fit: contain;
-    
 }
 
-/* Avatar (direita) */
 .avatar {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #d1d5db;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.10);
 }
 
 /* --- MAIN LAYOUT --- */
@@ -52,18 +76,23 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 18px;
     padding: 18px;
+    position: relative;
+    z-index: 2;
 }
 
-/* --- CARD (caixas) --- */
+/* --- CARD --- */
 .card {
-    background: #ffffff;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
     padding: 20px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    border: 1px solid rgba(229, 231, 235, 0.95);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    will-change: transform;
 }
 
-/* Títulos */
+/* títulos */
 .card h2 {
     margin-top: 0;
     margin-bottom: 12px;
@@ -71,7 +100,7 @@ body {
     color: #1f2937;
 }
 
-/* --- LINKS PADRÃO --- */
+/* links */
 .card a {
     display: block;
     text-decoration: none;
@@ -82,16 +111,17 @@ body {
     font-weight: 500;
     color: #1f2937;
     border: 1px solid #e2e8f0;
-    transition: all 0.15s ease;
+    transition: all 0.2s ease, transform 0.2s ease;
 }
 
-/* Hover geral */
+/* hover geral */
 .card a:hover {
     background: #2563eb;
     color: white;
+    transform: translateX(4px);
 }
 
-/* --- TÍTULOS COLORIDOS --- */
+/* títulos coloridos */
 .soco {
     color: #b91c1c;
 }
@@ -101,23 +131,37 @@ body {
     color: #b45309;
 }
 
-/* --- ESPECIAIS SOCORRO (hover pastel vermelho) --- */
+/* hover especiais */
 .link-socorro:hover {
     background: #ffeded !important;
     color: #7a0d0d !important;
     border-color: #e9b5b5 !important;
 }
 
-/* --- ESPECIAIS SALVAMENTO (hover pastel laranja) --- */
 .link-salvamento:hover {
     background: #fff4e5 !important;
     color: #8a4b08 !important;
     border-color: #f1c48a !important;
 }
 
-/* --- FOOTER --- */
+/* data */
+#data {
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #374151;
+    margin-top: -6px;
+    margin-bottom: 54px;
+    position: relative;
+    z-index: 2;
+    will-change: transform;
+}
+
+/* footer */
 footer {
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     text-align: center;
     padding: 10px;
     border-top: 2px solid #e2e8f0;
@@ -126,14 +170,6 @@ footer {
     position: absolute;
     bottom: 0;
     width: 100%;
+    z-index: 2;
+    will-change: transform;
 }
-/* --- DATA E HORA --- */
-#data {
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #374151;
-    margin-top: -6px;
-    margin-bottom: 10px;
-}
-
