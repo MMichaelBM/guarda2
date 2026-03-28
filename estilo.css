@@ -1,188 +1,95 @@
-/* --- BASE GERAL --- */
 body {
     margin: 0;
-    padding: 0;
     font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(135deg, #f5f7fa 0%, #eaf1f8 100%);
+    background: #f5f7fa;
     color: #1f2937;
     height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+}
+
+/* canvas fundo */
+#particles {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+/* conteúdo acima */
+header, main, footer, #data {
     position: relative;
+    z-index: 2;
 }
 
-/* fundo decorativo */
-.bg-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(45px);
-    opacity: 0.35;
-    pointer-events: none;
-    transition: transform 0.1s linear;
-}
-
-.orb1 {
-    width: 320px;
-    height: 320px;
-    background: rgba(37, 99, 235, 0.22);
-    top: -80px;
-    left: -60px;
-}
-
-.orb2 {
-    width: 260px;
-    height: 260px;
-    background: rgba(239, 68, 68, 0.16);
-    right: -40px;
-    bottom: 40px;
-}
-
-/* --- HEADER --- */
+/* header */
 .header {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: white;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     border-bottom: 2px solid #e2e8f0;
-    position: relative;
-    z-index: 2;
-    will-change: transform;
 }
 
 .logo-banner {
-    width: 890px;
-    max-width: 690px;
-    height: auto;
-    object-fit: contain;
+    max-width: 500px;
 }
 
 .avatar {
-    width: 120px;
-    height: 120px;
+    width: 100px;
     border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #d1d5db;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.10);
 }
 
-/* --- MAIN LAYOUT --- */
+/* layout */
 .main {
     flex: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 18px;
     padding: 18px;
-    position: relative;
-    z-index: 2;
 }
 
-/* --- CARD --- */
+/* cards */
 .card {
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 16px;
+    background: white;
+    border-radius: 12px;
     padding: 20px;
-    border: 1px solid rgba(229, 231, 235, 0.95);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    will-change: transform;
-}
-
-/* títulos */
-.card h2 {
-    margin-top: 0;
-    margin-bottom: 12px;
-    font-size: 1.2rem;
-    color: #1f2937;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
 }
 
 /* links */
 .card a {
     display: block;
-    text-decoration: none;
     background: #f1f5f9;
-    padding: 10px 12px;
+    padding: 10px;
     margin: 6px 0;
     border-radius: 8px;
-    font-weight: 500;
+    text-decoration: none;
     color: #1f2937;
-    border: 1px solid #e2e8f0;
-    transition: all 0.2s ease, transform 0.2s ease;
 }
 
-/* hover geral */
 .card a:hover {
     background: #2563eb;
     color: white;
-    transform: translateX(4px);
 }
 
-/* títulos coloridos */
-.soco {
-    color: #b91c1c;
-}
-
-.salv {
-    margin-top: 16px;
-    color: #b45309;
-}
-
-/* hover especiais */
-.link-socorro:hover {
-    background: #ffeded !important;
-    color: #7a0d0d !important;
-    border-color: #e9b5b5 !important;
-}
-
-.link-salvamento:hover {
-    background: #fff4e5 !important;
-    color: #8a4b08 !important;
-    border-color: #f1c48a !important;
-}
+/* títulos */
+.soco { color: #b91c1c; }
+.salv { color: #b45309; }
 
 /* data */
 #data {
     text-align: center;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: #374151;
-    margin-top: -6px;
-    margin-bottom: 54px;
-    position: relative;
-    z-index: 2;
-    will-change: transform;
+    margin-bottom: 40px;
+    font-weight: bold;
 }
 
 /* footer */
 footer {
-    background: rgba(255, 255, 255, 0.78);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: white;
     text-align: center;
     padding: 10px;
     border-top: 2px solid #e2e8f0;
-    font-size: 0.85rem;
-    color: #374151;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    z-index: 2;
-    will-change: transform;
-}
-#particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
-
-body > * {
-    position: relative;
-    z-index: 2;
 }
