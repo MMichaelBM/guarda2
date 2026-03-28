@@ -6,244 +6,232 @@
     <title>GUARDA – Atalhos Úteis</title>
     <link rel="stylesheet" href="estilo.css">
 </head>
+
 <body>
-    <canvas id="particles"></canvas>
 
-    <header class="header">
-        <img class="logo-banner" src="imagem/cbmce.png" alt="CBMCE">
-        <img class="avatar" src="imagem/logo1.png" alt="Logo">
-    </header>
+<canvas id="particles"></canvas>
 
-    <main class="main">
-        <div class="card">
-            <h2>Links úteis</h2>
+<header class="header">
+    <img class="logo-banner" src="imagem/cbmce.png">
+    <img class="avatar" src="imagem/logo1.png">
+</header>
 
-            <a href="https://cod.cb.ce.gov.br/" target="_blank" rel="noopener noreferrer">C.O.D</a>
-            <a href="https://sentinela2.cb.ce.gov.br/v1.6/sentinela_Login/sentinela_Login.php" target="_blank" rel="noopener noreferrer">Sentinela</a>
-            <a href="https://meu.cb.ce.gov.br/" target="_blank" rel="noopener noreferrer">Meu CBMCE</a>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScsDF7IlzqkWFdwZs2Hz_crdVByoritpOgndSA8vnwjwDLaNA/viewform?pli=1" target="_blank" rel="noopener noreferrer">Estatísticas</a>
-            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">Acessar internet</a>
-        </div>
+<main class="main">
+    
+    <div class="card">
+        <h2>Links úteis</h2>
 
-        <div class="card">
-            <h2 class="soco">SOCORRO</h2>
+        <a href="https://cod.cb.ce.gov.br/" target="_blank">C.O.D</a>
+        <a href="https://sentinela2.cb.ce.gov.br/" target="_blank">Sentinela</a>
+        <a href="https://meu.cb.ce.gov.br/" target="_blank">Meu CBMCE</a>
+        <a href="#">Estatísticas</a>
+        <a href="https://www.google.com" target="_blank">Acessar internet</a>
+    </div>
 
-            <a class="link-socorro" href="https://docs.google.com/forms/d/1OsdKHj9aTW1CTzMMVV3byIGW_W7JMFutToKRs-H7MjQ/edit" target="_blank" rel="noopener noreferrer">Viatura</a>
-            <a class="link-socorro" href="https://docs.google.com/forms/d/11DPZ-cGAEbmbvKnqyeEFym_UWUcKaihMLJ02W35JwvA/viewform?edit_requested=true" target="_blank" rel="noopener noreferrer">Material</a>
+    <div class="card">
+        <h2 class="soco">SOCORRO</h2>
 
-            <h2 class="salv">SALVAMENTO</h2>
+        <a class="link-socorro" href="#">Viatura</a>
+        <a class="link-socorro" href="#">Material</a>
 
-            <a class="link-salvamento" href="https://docs.google.com/forms/d/e/1FAIpQLSe5yydc5sr4i3yg4NgQChelQrcdx3lY66onlrBM_xTmp0Hzqg/viewform" target="_blank" rel="noopener noreferrer">Viatura</a>
-            <a class="link-salvamento" href="https://docs.google.com/forms/d/e/1FAIpQLScoMnfKY7CBI3gviHIgog8DlTf9ieSAUug-mgYgqB4sYLYV6A/viewform" target="_blank" rel="noopener noreferrer">Material</a>
-        </div>
-    </main>
+        <h2 class="salv">SALVAMENTO</h2>
 
-    <div id="data"></div>
+        <a class="link-salvamento" href="#">Viatura</a>
+        <a class="link-salvamento" href="#">Material</a>
+    </div>
 
-    <footer>
-        © 3ªCIA / 3ºBBM – Itapipoca • <b>Michael Robson</b> 🇧🇷
-    </footer>
+</main>
 
-    <script>
-        function atualizarDataHora() {
-            const agora = new Date();
-            const opcoes = {
-                weekday: "long",
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit"
-            };
+<div id="data"></div>
 
-            document.getElementById("data").textContent =
-                agora.toLocaleDateString("pt-BR", opcoes);
-        }
+<footer>
+    © 3ªCIA / 3ºBBM – Itapipoca • <b>Michael Robson</b> 🇧🇷
+</footer>
 
-        setInterval(atualizarDataHora, 1000);
-        atualizarDataHora();
+<script>
+// ================= DATA =================
+function atualizarDataHora() {
+    const agora = new Date();
+    document.getElementById("data").textContent =
+        agora.toLocaleDateString("pt-BR", {
+            weekday: 'long',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+}
+setInterval(atualizarDataHora, 1000);
+atualizarDataHora();
 
-        const canvas = document.getElementById("particles");
-        const ctx = canvas.getContext("2d", { alpha: true });
 
-        let width = 0;
-        let height = 0;
-        let particles = [];
-        const pointer = {
-            x: null,
-            y: null,
-            radius: 140
-        };
+// ================= PARTICULAS AVANÇADAS =================
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
 
-        const CONFIG = {
-            spacing: 28,
-            particleSize: 1.6,
-            returnSpeed: 0.045,
-            repelStrength: 1.8,
-            connectDistance: 72,
-            maxLineOpacity: 0.18,
-            gradientLeft: { r: 37, g: 99, b: 235 },
-            gradientRight: { r: 244, g: 63, b: 94 }
-        };
+let width, height;
+let particles = [];
 
-        function resizeCanvas() {
-            const dpr = Math.max(window.devicePixelRatio || 1, 1);
-            width = window.innerWidth;
-            height = window.innerHeight;
+const mouse = {
+    x: null,
+    y: null,
+    radius: 140
+};
 
-            canvas.width = Math.floor(width * dpr);
-            canvas.height = Math.floor(height * dpr);
-            canvas.style.width = width + "px";
-            canvas.style.height = height + "px";
+function resizeCanvas() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    initParticles();
+}
 
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            ctx.scale(dpr, dpr);
+window.addEventListener("resize", resizeCanvas);
 
-            createParticles();
-        }
+window.addEventListener("mousemove", (e) => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+});
 
-        function lerp(a, b, t) {
-            return a + (b - a) * t;
-        }
+window.addEventListener("mouseleave", () => {
+    mouse.x = null;
+    mouse.y = null;
+});
 
-        function colorByX(x) {
-            const t = Math.max(0, Math.min(1, x / width));
-            const r = Math.round(lerp(CONFIG.gradientLeft.r, CONFIG.gradientRight.r, t));
-            const g = Math.round(lerp(CONFIG.gradientLeft.g, CONFIG.gradientRight.g, t));
-            const b = Math.round(lerp(CONFIG.gradientLeft.b, CONFIG.gradientRight.b, t));
-            return `rgb(${r}, ${g}, ${b})`;
-        }
+function lerp(a, b, t) {
+    return a + (b - a) * t;
+}
 
-        class Particle {
-            constructor(x, y) {
-                this.baseX = x;
-                this.baseY = y;
-                this.x = x;
-                this.y = y;
-                this.vx = 0;
-                this.vy = 0;
-                this.size = CONFIG.particleSize + Math.random() * 0.6;
+// 🔥 NOVA PALETA: vermelho → laranja → caqui
+function colorByX(x) {
+    const t = Math.max(0, Math.min(1, x / width));
+
+    let r, g, b;
+
+    if (t < 0.5) {
+        const tt = t * 2;
+        r = Math.round(lerp(180, 255, tt)); // vermelho → laranja
+        g = Math.round(lerp(30, 120, tt));
+        b = Math.round(lerp(30, 40, tt));
+    } else {
+        const tt = (t - 0.5) * 2;
+        r = Math.round(lerp(255, 195, tt)); // laranja → caqui
+        g = Math.round(lerp(120, 176, tt));
+        b = Math.round(lerp(40, 145, tt));
+    }
+
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+class Particle {
+    constructor(x, y) {
+        this.baseX = x;
+        this.baseY = y;
+        this.x = x;
+        this.y = y;
+        this.vx = 0;
+        this.vy = 0;
+        this.size = 1.5;
+    }
+
+    update() {
+        if (mouse.x !== null) {
+            let dx = this.x - mouse.x;
+            let dy = this.y - mouse.y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < mouse.radius) {
+                let force = (mouse.radius - dist) / mouse.radius;
+                this.vx += (dx / dist) * force * 2;
+                this.vy += (dy / dist) * force * 2;
             }
+        }
 
-            update() {
-                if (pointer.x !== null && pointer.y !== null) {
-                    const dx = this.x - pointer.x;
-                    const dy = this.y - pointer.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy) || 0.0001;
+        // voltar pro lugar
+        this.vx += (this.baseX - this.x) * 0.04;
+        this.vy += (this.baseY - this.y) * 0.04;
 
-                    if (distance < pointer.radius) {
-                        const force = (pointer.radius - distance) / pointer.radius;
-                        const angleX = dx / distance;
-                        const angleY = dy / distance;
+        this.vx *= 0.9;
+        this.vy *= 0.9;
 
-                        this.vx += angleX * force * CONFIG.repelStrength;
-                        this.vy += angleY * force * CONFIG.repelStrength;
-                    }
-                }
+        this.x += this.vx;
+        this.y += this.vy;
+    }
 
-                this.vx += (this.baseX - this.x) * CONFIG.returnSpeed;
-                this.vy += (this.baseY - this.y) * CONFIG.returnSpeed;
+    draw() {
+        ctx.beginPath();
+        ctx.fillStyle = colorByX(this.x);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
 
-                this.vx *= 0.88;
-                this.vy *= 0.88;
+function initParticles() {
+    particles = [];
+    const spacing = 30;
 
-                this.x += this.vx;
-                this.y += this.vy;
-            }
+    for (let y = 0; y < height; y += spacing) {
+        for (let x = 0; x < width; x += spacing) {
+            particles.push(new Particle(x, y));
+        }
+    }
+}
 
-            draw() {
+function connectParticles() {
+    for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+
+            let dx = particles[i].x - particles[j].x;
+            let dy = particles[i].y - particles[j].y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < 80) {
+                let opacity = 1 - dist / 80;
+
+                ctx.strokeStyle = colorByX((particles[i].x + particles[j].x)/2)
+                    .replace("rgb", "rgba")
+                    .replace(")", `, ${opacity * 0.2})`);
+
+                ctx.lineWidth = 1;
                 ctx.beginPath();
-                ctx.fillStyle = colorByX(this.x);
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
             }
         }
+    }
+}
 
-        function createParticles() {
-            particles = [];
-            for (let y = 16; y < height; y += CONFIG.spacing) {
-                for (let x = 16; x < width; x += CONFIG.spacing) {
-                    particles.push(new Particle(x, y));
-                }
-            }
-        }
+// 🔥 brilho no mouse (cor quente)
+function drawGlow() {
+    if (mouse.x === null) return;
 
-        function drawConnections() {
-            for (let i = 0; i < particles.length; i++) {
-                const p1 = particles[i];
+    let grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 180);
+    grad.addColorStop(0, "rgba(255,80,0,0.15)");
+    grad.addColorStop(0.5, "rgba(255,140,0,0.08)");
+    grad.addColorStop(1, "transparent");
 
-                for (let j = i + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(mouse.x, mouse.y, 180, 0, Math.PI * 2);
+    ctx.fill();
+}
 
-                    const dx = p1.x - p2.x;
-                    const dy = p1.y - p2.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
+function animate() {
+    ctx.clearRect(0, 0, width, height);
 
-                    if (distance < CONFIG.connectDistance) {
-                        const opacity = (1 - distance / CONFIG.connectDistance) * CONFIG.maxLineOpacity;
-                        const midX = (p1.x + p2.x) * 0.5;
+    drawGlow();
 
-                        ctx.beginPath();
-                        ctx.strokeStyle = colorByX(midX).replace("rgb", "rgba").replace(")", `, ${opacity})`);
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(p1.x, p1.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
+    particles.forEach(p => p.update());
+    connectParticles();
+    particles.forEach(p => p.draw());
 
-        function drawPointerGlow() {
-            if (pointer.x === null || pointer.y === null) return;
+    requestAnimationFrame(animate);
+}
 
-            const gradient = ctx.createRadialGradient(
-                pointer.x, pointer.y, 0,
-                pointer.x, pointer.y, pointer.radius * 1.2
-            );
+resizeCanvas();
+animate();
 
-            gradient.addColorStop(0, "rgba(37, 99, 235, 0.10)");
-            gradient.addColorStop(0.55, "rgba(99, 102, 241, 0.06)");
-            gradient.addColorStop(1, "rgba(244, 63, 94, 0)");
+</script>
 
-            ctx.beginPath();
-            ctx.fillStyle = gradient;
-            ctx.arc(pointer.x, pointer.y, pointer.radius * 1.2, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-
-            drawPointerGlow();
-
-            for (const particle of particles) {
-                particle.update();
-            }
-
-            drawConnections();
-
-            for (const particle of particles) {
-                particle.draw();
-            }
-
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener("mousemove", (event) => {
-            pointer.x = event.clientX;
-            pointer.y = event.clientY;
-        });
-
-        window.addEventListener("mouseleave", () => {
-            pointer.x = null;
-            pointer.y = null;
-        });
-
-        window.addEventListener("resize", resizeCanvas);
-
-        resizeCanvas();
-        animate();
-    </script>
 </body>
 </html>
